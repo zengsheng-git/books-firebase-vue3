@@ -16,16 +16,18 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      # 2. 安装Node.js和pnpm
-      - name: 设置Node.js和pnpm
+      # 2. 安装Node.js
+      - name: 设置Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'  # 缓存pnpm依赖，加速构建
 
       # 3. 安装pnpm
       - name: 安装pnpm
-        run: npm install -g pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
 
       # 4. 安装项目依赖
       - name: 安装依赖
