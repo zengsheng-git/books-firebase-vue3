@@ -41,9 +41,12 @@ jobs:
       - name: 部署到GitHub Pages
         uses: peaceiris/actions-gh-pages@v4  # 第三方部署工具
         with:
-          # GitHub自动生成的令牌（无需手动配置）
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 使用具有写入权限的Personal Access Token
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
           # 要部署的目录（Vue构建后的产物）
           publish_dir: ./dist
           # 部署到的分支（固定为gh-pages，GitHub Pages默认读取此分支）
           publish_branch: gh-pages
+          # 提交者信息
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
