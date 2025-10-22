@@ -1,0 +1,43 @@
+# 工作流名称
+name: 部署Vue3到GitHub Pages
+
+# 触发条件：当推送到main分支时执行
+on:
+  push:
+    branches: [ main ]
+
+# 任务定义
+jobs:
+  build-and-deploy:
+    # 运行环境：Ubuntu最新版
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 拉取代码到工作流环境
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      # 2. 安装Node.js（根据项目依赖的Node版本调整，如18、20）
+      - name: 设置Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'  # 缓存npm依赖，加速构建
+
+      # 3. 安装项目依赖
+      - name: 安装依赖
+        run: npm install  # 若用yarn/pnpm，替换为yarn install或pnpm install
+
+      # 4. 构建项目（生成dist目录）
+      - name: 构建项目
+        run: npm run build  # 对应package.json中的build命令
+
+      # 5. 部署dist目录到gh-pages分支（GitHub Pages的默认源）
+      - name: 部署到GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4  # 第三方部署工具
+        with:
+          # GitHub自动生成的令牌（无需手动配置）
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 要部署的目录（Vue构建后的产物）
+          publish_dir: ./dist
+          # 部署到的分支（固定为gh-pages，GitHub Pages默认读取此分支）
+          publish_branch: gh-pages
