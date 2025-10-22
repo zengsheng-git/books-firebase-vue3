@@ -16,16 +16,20 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      # 2. 安装Node.js（根据项目依赖的Node版本调整，如18、20）
-      - name: 设置Node.js
+      # 2. 安装Node.js和pnpm
+      - name: 设置Node.js和pnpm
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'  # 缓存npm依赖，加速构建
+          cache: 'pnpm'  # 缓存pnpm依赖，加速构建
 
-      # 3. 安装项目依赖
+      # 3. 安装pnpm
+      - name: 安装pnpm
+        run: npm install -g pnpm
+
+      # 4. 安装项目依赖
       - name: 安装依赖
-        run: npm install  # 若用yarn/pnpm，替换为yarn install或pnpm install
+        run: pnpm install  # 使用pnpm安装依赖
 
       # 4. 构建项目（生成dist目录）
       - name: 构建项目
