@@ -54,7 +54,7 @@ https://home.openweathermap.org/api_keys
 ****** 自己的密码
 
 # githup action 提交部署 (https://zengsheng-git.github.io/books-firebase-vue3)
-1.  需要把 githup 仓库名称 改为 公共public 仓库
+1.  需要把 githup 仓库名称 改为 公共public 仓库，并且 需要 上传 `pnpm-lock.yaml` 文件
 2.  需要创建新的分支 gh-pages
 2.  需要设置 `base: process.env.NODE_ENV === 'production' ? '/books-firebase-vue3/' : '/'`
 books-firebase-vue3 是你的githup仓库名称
